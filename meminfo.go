@@ -21,6 +21,7 @@ type Mem struct {
 	SwapTotal    uint64
 	SwapUsed     uint64
 	SwapFree     uint64
+	SwapCached   uint64
 }
 
 func (this *Mem) String() string {
@@ -37,6 +38,7 @@ var WANT = map[string]struct{}{
 	"MemAvailable:": struct{}{},
 	"SwapTotal:":    struct{}{},
 	"SwapFree:":     struct{}{},
+	"SwapCached:":   struct{}{},
 }
 
 func MemInfo() (*Mem, error) {
@@ -82,6 +84,8 @@ func MemInfo() (*Mem, error) {
 				memInfo.SwapTotal = val * Multi
 			case "SwapFree:":
 				memInfo.SwapFree = val * Multi
+			case "SwapCached:":
+				memInfo.SwapCached = val * Multi
 			}
 		}
 	}
